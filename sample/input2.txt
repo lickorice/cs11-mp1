@@ -1,0 +1,5 @@
+dictionary_sample.txt
+3
+rat
+cats
+colonialists
