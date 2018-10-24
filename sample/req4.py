@@ -8,7 +8,7 @@ def fileToList(filename):
 def generateSequence(word_list):
     """This function returns an absolute minimum dictionary of letters required
     to form a given list of words."""
-    alphabet = {chr(i): 0 for i in range(97, 122)}
+    alphabet = {chr(i): 0 for i in range(97, 123)}
     for word in word_list:
         character_dict = {}
         for character in word:

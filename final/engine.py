@@ -17,18 +17,20 @@ current_word_count = 0
 status_gameRuntime = False
 status_gameMode = 0
 
-def init_dictionary(filename):
+def init_dictionary():
     """
-    This function initializes the game's dictionary given a filename.
+    This function initializes the game's dictionary.
+    To change the dictionary, change the directory at
+    config/cfg_general.json
     """
     global current_dictionary, current_word_count
     try:
-        with open(filename, 'r') as f:
+        with open(cfg_general["DICTIONARY_FILE"], 'r') as f:
             current_dictionary = [line.rstrip() for line in f.readlines()]
     except FileNotFoundError:
-        return False
+        return False, 0
     current_word_count= len(current_dictionary)
-    return True
+    return True, current_word_count
 
 
 def start_game(gamemode, _player):
@@ -59,7 +61,7 @@ def start_game(gamemode, _player):
 
 def main():
     print("You are running the debug version of engine.py.")
-    if init_dictionary(cfg_general["DICTIONARY_FILE"]):
+    if init_dictionary():
         print("Dictionary successfully loaded. {} words found.".format(current_word_count))
     else:
         print("Dictionary failed to load. Exiting application...")

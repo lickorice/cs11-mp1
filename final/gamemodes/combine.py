@@ -23,19 +23,20 @@ def start(dictionary, word_count, player):
         word_list.append(dictionary[random.randrange(word_count)])
 
     target_string = generate_string(generate_sequence(word_list))
-    total_points = max_points(target_string, dictionary)
+    total_points, cur_words = max_points(target_string, dictionary), []
     print("Find words from this sequence of characters:")
     print(target_string)
     
     # TODO: also change this to some time-based element
     for i in range(10):
         answer = input("Enter word: ")
-        if check_answer(target_string, answer, dictionary):
+        if check_answer(target_string, answer, dictionary) and answer not in cur_words:
             points = convert_points(answer)
+            cur_words.append(answer)
             print("Correct! {} points gained.".format(points))
             player.points += points
         else:
-            print("Wrong!")
+            print("Try Again!")
 
     print("In total, you got {} points out of".format(player.points))
     print("a possible total of {} points!".format(total_points))
@@ -47,7 +48,7 @@ def generate_sequence(word_list):
     This function returns an absolute minimum dictionary of letters required
     to form a given list of words.
     """
-    alphabet = {chr(i): 0 for i in range(97, 122)}
+    alphabet = {chr(i): 0 for i in range(97, 123)}
     for word in word_list:
         character_dict = {}
         for character in word:
@@ -69,6 +70,9 @@ def generate_string(sequence):
     output_str = ''
     for character in sequence:
         output_str += character*sequence[character]
+    output_str = list(output_str)
+    random.shuffle(output_str)
+    output_str = ''.join(output_str)
     return output_str
 
 
