@@ -1,3 +1,11 @@
+"""
+    This is the main .py file. 
+    Run this to run the game.
+
+    developed by Carlos Panganiban, 2018
+    github.com/lickorice | @cgpanganiban
+"""
+
 import engine
 
 # Configure some values:
@@ -17,7 +25,7 @@ def main():
     """The main method run when running the game."""
 
     # Initiate the main dictionary
-    dictionary = engine.initDictionary(input(str_init))
+    # dictionary = engine.initDictionary(input(str_init))
 
 
 if __name__ == '__main__':
