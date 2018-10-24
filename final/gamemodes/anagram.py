@@ -6,11 +6,7 @@
     github.com/lickorice | @cgpanganiban
 """
 
-import random
-import json
-
-with open('config/cfg_points.json') as ofile:
-    cfg_points = json.load(ofile)
+import random, json
 
 
 def start(dictionary, word_count, player):
