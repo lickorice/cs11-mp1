@@ -26,6 +26,15 @@ def main():
     else:
         print("Dictionary failed to load. Exiting game...")
         return
+
+    print("Initializing anagram library...")
+
+    _dict2 = engine.init_anagram_dict(3)
+    if _dict2[0]:
+        print("Anagram library successfully loaded. {} words found.".format(_dict2[1]))
+    else:
+        print("Anagram library failed to load. Exiting game...")
+        return
     
     print(cli_strings["MAIN-MENU"])
 
