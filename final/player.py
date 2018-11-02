@@ -14,5 +14,5 @@ class Player:
     point tallying, and etc.
     """
 
-    points, words_solved, name = 0, 0, ""
+    points, words_solved = 0, 0
     gamerecord = "" # put a tuple here later: (gamemode, word/string)

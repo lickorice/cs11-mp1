@@ -13,9 +13,7 @@ with open('config/cfg_general.json') as ofile:
 
 current_dictionary = []
 current_word_count = 0
-
-status_gameRuntime = False
-status_gameMode = 0
+current_player = 0
 
 def init_dictionary(filename):
     """
@@ -31,30 +29,23 @@ def init_dictionary(filename):
     return True
 
 
-def start_game(gamemode, _player):
-    """
-    This function starts a game, given the gamemode (integer) and _player (Player()).
-        gamemode            |       game
-        1                           SEARCHING FOR ANAGRAMS
-        2                           COMBINING WORDS
-    These are hardcoded, and have to be changed within the code itself.
-    You also need to pass a Player object, to store the points, etc.
-    """
-    global status_gameRuntime, status_gameMode
-    if gamemode == 1:
-        print("Starting anagram search game...")
-        status_gameRuntime, status_gameMode = True, 1
-        anagram.start(current_dictionary, current_word_count, _player)
-    elif gamemode == 2:
-        print("Starting combine words game...")
-        status_gameRuntime, status_gameMode = True, 2
-        combine.start(current_dictionary, current_word_count, _player)
-    else:
-        print("Game mode invalid. Closing the game...")
-        return
+def anagram_init():
+    """This function starts the anagram game."""
+    global current_player
+    current_player = player.Player()
+    return anagram.init_word(current_dictionary, current_word_count)
 
-    print("You just finished a game.", _player.words_solved, _player.gamerecord)
-    status_gameRuntime = False, 0
+
+def anagram_correct():
+    """This function increments the number of words solved by the player."""
+    global current_player
+    current_player.words_solved += 1
+
+
+def anagram_end():
+    """This function returns the number of words solved by the player."""
+    global current_player
+    return current_player.words_solved
 
 
 def main():
@@ -63,10 +54,7 @@ def main():
         print("Dictionary successfully loaded. {} words found.".format(current_word_count))
     else:
         print("Dictionary failed to load. Exiting application...")
-
-    current_player = player.Player()
-
-    start_game(2, current_player)
+        
 
 if __name__ == '__main__':
     main()

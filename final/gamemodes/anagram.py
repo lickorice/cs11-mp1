@@ -9,45 +9,18 @@
 import random, json
 
 
-def start(dictionary, word_count, player):
+def init_word(dictionary, word_count):
     """
-    This method starts a new game.
+    This method instantiates a word with its corresponding anagram list.
+    Returns a word (string) and a word list (list)
     """
-    print("Finding a new word...")
 
-    target_list = ""
-
-    while len(target_list) < 4:
-        word_index = random.randrange(word_count)
-        target_word = dictionary[word_index]
-        print(target_word)
-        target_list = anagrams(target_word, dictionary)
-
+    word_index = random.randrange(word_count)
+    target_word = dictionary[word_index]
+    target_list = anagrams(target_word, dictionary)
     target_list.remove(target_word)
-    original_list = target_list.copy()
 
-    print("Search at least 3 anagrams for the following word:")
-    print(target_word)
-    print(target_list)
-
-    # TODO: Time this part, instead of using a for loop.
-    for i in range(10):
-        if len(target_list) == 0:
-            break
-        answer = input("Enter answer: ")
-        if answer in target_list:
-            print("Correct!")
-            player.words_solved += 1
-            target_list.remove(answer)
-        else:
-            print("Huh?")
-
-    print("You solved {} words!".format(player.words_solved))
-    print("The following anagrams for {} is:".format(target_word))
-    for word in original_list:
-        print("\t{}".format(word))
-    player.gamerecord = (1, target_word)
-
+    return target_word, target_list
 
 
 def anagrams(target_word, input_dict):
@@ -60,3 +33,11 @@ def anagrams(target_word, input_dict):
             output_list.append(word)
     return output_list
 
+
+# DEBUG MODE:
+
+def main():
+    print(init_word())
+
+if __name__ == '__main__':
+    main()

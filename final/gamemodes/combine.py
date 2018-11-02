@@ -42,6 +42,9 @@ def start(dictionary, word_count, player):
     player.gamerecord = (2, target_string)
 
 
+
+
+
 def generate_sequence(word_list):
     """
     This function returns an absolute minimum dictionary of letters required
@@ -128,3 +131,12 @@ def max_points(input_str, input_dict):
                     output_pts += entry
                     break
     return output_pts
+
+
+# DEBUG MODE:
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
