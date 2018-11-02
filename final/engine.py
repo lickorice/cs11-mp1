@@ -48,13 +48,47 @@ def anagram_end():
     return current_player.words_solved
 
 
+def combine_init():
+    """This function starts the combine game."""
+    global current_player
+    current_player = player.Player()
+    return combine.init_letters(current_dictionary, current_word_count)
+
+
+def combine_correct(word, letter_string):
+    """This function increments the number of points achieved by the player."""
+    global current_player
+    if combine.check_answer(letter_string, word, current_dictionary):
+        points = combine.convert_points(word)
+        current_player.points += points
+        print(current_player.points)
+        return True
+    else:
+        return False
+
+
+def combine_points():
+    """This function returns the total points of the player."""
+    global current_player
+    return current_player.points
+
+
+def combine_end():
+    """This function returns the number of words solved by the player."""
+    global current_player
+    return current_player.points
+
+
 def main():
     print("You are running the debug version of engine.py.")
     if init_dictionary(cfg_general["DICTIONARY_FILE"]):
         print("Dictionary successfully loaded. {} words found.".format(current_word_count))
     else:
         print("Dictionary failed to load. Exiting application...")
-        
+
+    for i in range(10):
+        print(combine_init())
+
 
 if __name__ == '__main__':
     main()

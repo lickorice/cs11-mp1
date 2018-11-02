@@ -13,6 +13,37 @@ with open('config/cfg_points.json') as ofile:
 
 cfg_points = {int(entry) : cfg_points[entry] for entry in cfg_points}
 
+
+def init_letters(dictionary, word_count):
+    """
+    This function returns a list of 16 letters that have valid
+    answers.
+    """
+
+    word_list = []
+
+    while True:
+        for i in range(3):
+            word_list.append(dictionary[random.randrange(word_count)])
+
+        target_string = generate_string(generate_sequence(word_list))
+        if len(target_string) == 16:
+            return target_string, max_points(target_string, dictionary)
+        elif len(target_string) > 16:
+            target_string = target_string[:16]
+            if max_points(target_string, dictionary) == 0:
+                continue    
+            else:
+                return target_string, max_points(target_string, dictionary)
+        else:
+            while True:
+                if len(target_string) == 16:
+                    return target_string, max_points(target_string, dictionary)
+                else:
+                    target_string += chr(random.randint(97, 122))
+                    return target_string, max_points(target_string, dictionary)
+
+
 def start(dictionary, word_count, player):
     """
     This method starts a new game.
@@ -42,15 +73,12 @@ def start(dictionary, word_count, player):
     player.gamerecord = (2, target_string)
 
 
-
-
-
 def generate_sequence(word_list):
     """
     This function returns an absolute minimum dictionary of letters required
     to form a given list of words.
     """
-    alphabet = {chr(i): 0 for i in range(97, 122)}
+    alphabet = {chr(i): 0 for i in range(97, 123)}
     for word in word_list:
         character_dict = {}
         for character in word:
@@ -72,6 +100,11 @@ def generate_string(sequence):
     output_str = ''
     for character in sequence:
         output_str += character*sequence[character]
+    output_list = [x for x in output_str]
+    random.shuffle(output_list)
+    output_str = ''
+    for character in output_list:
+        output_str += character
     return output_str
 
 

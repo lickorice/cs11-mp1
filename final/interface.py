@@ -15,12 +15,11 @@ display_width = cfg_interface["DISPLAY_WIDTH"]
 display_height = cfg_interface["DISPLAY_HEIGHT"]
 
 screen = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption("Test")
+pygame.display.set_caption("Unscramble")
 
 clock = pygame.time.Clock()
 
 music_playing = False
-
 
 def fade(background_url, fade_type = "out", time_delay=3):
     """
@@ -201,8 +200,6 @@ def anagram_loading_screen():
         screen.blit(img_loading_bg, (0, 0))
         word_display(display_word)
 
-        print(display_word, answer_list)
-
         pygame.display.update()
         clock.tick(60)
 
@@ -276,8 +273,6 @@ def anagram_screen():
             engine.anagram_correct()
             return True
 
-            # put correct methods here
-
         else:
             aud_fail.play()
             for i in range(3):
@@ -324,7 +319,6 @@ def anagram_screen():
         if timer(count) or len(answer_list) == 0:
             running_anagram_game = False
             aud_ding.play()
-            print("Time's up!")
 
         count = (pygame.time.get_ticks() - start_tick)/1000
 
@@ -341,7 +335,155 @@ def combine_screen():
     """
     This function instantiates the combine game instance.
     """
-    pass
+    
+    swipe('assets/img_game-combine.png')
+
+    letter_string, max_points = engine.combine_init()
+    answer_list = []
+    current_points = 0
+    combine_list = [[x, True] for x in letter_string]
+    available_letters = [x[0] for x in combine_list if x[1] == True]
+
+    def text_available(text, font):
+        textSurface = font.render(text, True, (0, 0, 0))
+        return textSurface, textSurface.get_rect()
+
+    def text_unavailable(text, font):
+        textSurface = font.render(text, True, (100, 100, 100))
+        return textSurface, textSurface.get_rect()
+
+    def text_objects(text, font):
+        textSurface = font.render(text, True, (14, 12, 74))
+        return textSurface, textSurface.get_rect()
+
+    def text_correct(text, font):
+        textSurface = font.render(text, True, (80, 213, 66))
+        return textSurface, textSurface.get_rect()
+
+    def text_wrong(text, font):
+        textSurface = font.render(text, True, (216, 38, 38))
+        return textSurface, textSurface.get_rect()
+
+    def word_display(text):
+        text_font = pygame.font.Font('assets/fnt_handwriting.otf', 80)
+        text_surface, text_rect = text_objects(text, text_font)
+        text_rect.center = ((display_width//2), (display_height//2-85))
+        screen.blit(text_surface, text_rect)
+
+    def word_correct(text):
+        text_font = pygame.font.Font('assets/fnt_handwriting.otf', 80)
+        text_surface, text_rect = text_correct(text, text_font)
+        text_rect.center = ((display_width//2), (display_height//2-85))
+        screen.blit(text_surface, text_rect)
+
+    def word_wrong(text):
+        text_font = pygame.font.Font('assets/fnt_handwriting.otf', 80)
+        text_surface, text_rect = text_wrong(text, text_font)
+        text_rect.center = ((display_width//2), (display_height//2-85))
+        screen.blit(text_surface, text_rect)
+
+    def combine_display(letter_list):
+        text_font = pygame.font.Font('assets/fnt_typewriter.ttf', 50)
+
+        combine_coordinates = [(i, 280) for i in range(190, 620, 60)] + [(i, 340) for i in range(190, 620, 60)]
+
+        i = 0
+        for entry in letter_list:
+            if entry[1] == True:
+                text_surface, text_rect = text_available(entry[0].upper(), text_font)
+            else:
+                text_surface, text_rect = text_unavailable(entry[0].upper(), text_font)
+            text_rect.center = (combine_coordinates[i][0], combine_coordinates[i][1])
+            screen.blit(text_surface, text_rect)
+            i += 1
+
+    def process_combine(text):
+        if text not in answer_list and engine.combine_correct(text, letter_string):
+            answer_list.append(text)
+            aud_ding.play()
+            for i in range(3):
+                word_correct(text)
+                pygame.time.delay(100)
+                pygame.display.update()
+                word_display(text)
+                pygame.time.delay(100)
+                pygame.display.update()
+                clock.tick(60)
+
+            current_points = engine.combine_points()
+
+            return True
+
+        else:
+            aud_fail.play()
+            for i in range(3):
+                word_wrong(text)
+                pygame.time.delay(100)
+                pygame.display.update()
+                word_display(text)
+                pygame.time.delay(100)
+                pygame.display.update()
+                clock.tick(60)
+            return False          
+
+    img_combine_background = pygame.image.load('assets/img_game-combine.png')
+    aud_keystroke = pygame.mixer.Sound('assets/aud_keystroke.wav')
+    aud_key_error = pygame.mixer.Sound('assets/aud_key-error.wav')
+    aud_ding = pygame.mixer.Sound('assets/aud_ding.wav')
+    aud_fail = pygame.mixer.Sound('assets/aud_fail.wav')
+
+    running_combine_game, input_string, count = True, '', 0.0
+    start_tick = pygame.time.get_ticks()
+
+    while running_combine_game:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running_combine_game = False
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    if len(input_string) > 0:
+                        index = combine_list.index([input_string[-1], False])
+                        combine_list[index][1] = True
+                        input_string = input_string[:-1]
+                        aud_keystroke.play()
+                        available_letters = [x[0] for x in combine_list if x[1] == True]
+                elif event.key == pygame.K_RETURN:
+                    if process_combine(input_string):
+                        input_string = ''
+                        combine_list = [[x[0], True] for x in combine_list]
+                        available_letters = [x[0] for x in combine_list if x[1] == True]
+                elif pygame.K_a <= event.key <= pygame.K_z:
+                    character = chr(event.key)
+                    if character in available_letters:
+                        input_string += str(character).lower()
+                        aud_keystroke.play()
+                        index = combine_list.index([character, True])
+                        combine_list[index][1] = False
+                        available_letters = [x[0] for x in combine_list if x[1] == True]
+                    else:
+                        aud_key_error.play()
+
+        screen.blit(img_combine_background, (0, 0))
+
+        combine_display(combine_list)
+        word_display(input_string)
+
+        if timer(count) or current_points == max_points:
+            running_combine_game = False
+            aud_ding.play()
+
+        count = (pygame.time.get_ticks() - start_tick)/1000
+
+        pygame.display.update()
+        clock.tick(60)
+
+    # change this to the score end screen
+    pygame.time.delay(1000)
+    swipe('assets/img_score-bg.png')
+    combine_score_screen(letter_string, max_points)
+    
 
 
 def anagram_score_screen(answer_list):
@@ -381,20 +523,54 @@ def anagram_score_screen(answer_list):
 
         screen.blit(img_background, (0, 0))
         word_display("{} word{} solved".format(words_solved, plurality), 175, 60)
-        word_display("The words were:".format(words_solved, plurality), 235, 40)
+        word_display("The words were:", 235, 40)
         word_display(answers, 310, 60)
 
-        but_1 = add_button(355, 455, 345, 405, but_1, start_transition, 'assets/aud_select.wav')
+        but_1 = back_button(355, 455, 345, 405, but_1, start_transition, 'assets/aud_select.wav')
 
         pygame.display.update()
         clock.tick(60)
 
 
-def combine_score_screen():
+def combine_score_screen(letter_string, max_points):
     """
     This function instantiates the combine score screen instance.
     """
-    pass
+
+    def text_objects(text, font):
+        textSurface = font.render(text, True, (14, 12, 74))
+        return textSurface, textSurface.get_rect()
+
+    def word_display(text, height, size):
+        text_font = pygame.font.Font('assets/fnt_handwriting.otf', size)
+        text_surface, text_rect = text_objects(text, text_font)
+        text_rect.center = ((display_width//2), (height))
+        screen.blit(text_surface, text_rect)
+
+    img_background = pygame.image.load('assets/img_score-bg.png')
+    
+    running_score_screen = True
+    points = engine.combine_end()
+    plurality = 's' if points != 1 else ''
+
+    but_1 = False
+
+    while running_score_screen:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+                pygame.quit()
+
+        screen.blit(img_background, (0, 0))
+        word_display("{} total point{}".format(points, plurality), 175, 60)
+        word_display("The maximum achievable points for {} was:".format(letter_string), 235, 40)
+        word_display(str(max_points), 310, 60)
+
+        but_1 = back_button(355, 455, 345, 405, but_1, start_transition, 'assets/aud_select.wav')
+
+        pygame.display.update()
+        clock.tick(60)
 
 
 def start_transition():
@@ -435,7 +611,7 @@ def start_menu():
         aud_select, img_select = 'assets/aud_select.wav', 'assets/img_pointer.png'
         but_1 = add_button(120, 310, 145, 180, but_1, anagram_screen, aud_select, img_select)
         but_2 = add_button(120, 310, 200, 235, but_2, combine_screen, aud_select, img_select)
-        but_4 = add_button(120, 310, 315, 350, but_4, pygame.quit, aud_select, img_select)
+        but_4 = add_button(120, 190, 315, 350, but_4, pygame.quit, aud_select, img_select)
 
         pygame.display.flip()
         
@@ -467,10 +643,6 @@ def start_game():
         if game_start_menu:
             start_menu()
             game_start_menu = False
-
-
-        
-            # print(event)
 
         pygame.display.flip()
 

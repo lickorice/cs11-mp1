@@ -6,26 +6,16 @@
     github.com/lickorice | @cgpanganiban
 """
 
-import engine
+import engine, interface, json
 
-# Configure some values:
-point_index = {
-    1 : ['e', 'a', 'i', 'o', 'u', 'n', 'r', 't', 'l', 's', 'u'],
-    2 : ['d', 'g'],
-    3 : ['b', 'c', 'm', 'p'],
-    4 : ['f', 'h', 'v', 'w', 'y'],
-    5 : ['k'],
-    8 : ['j', 'x'],
-    10 : ['q', 'z']
-}
-str_init = "Enter dictionary name: "
+with open('config/cfg_general.json') as ofile:
+    cfg_general = json.load(ofile)
 
 
 def main():
     """The main method run when running the game."""
-
-    # Initiate the main dictionary
-    # dictionary = engine.initDictionary(input(str_init))
+    engine.init_dictionary(cfg_general["DICTIONARY_FILE"])
+    interface.start_game()
 
 
 if __name__ == '__main__':
