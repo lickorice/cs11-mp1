@@ -4,4 +4,7 @@
 
     developed by Carlos Panganiban, 2018
     github.com/lickorice | @cgpanganiban
+
+    In the CLI mode, all command line interfaces are handled
+    by engine.py .
 """

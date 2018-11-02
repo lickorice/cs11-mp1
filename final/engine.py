@@ -12,9 +12,7 @@ with open('config/cfg_general.json') as ofile:
     cfg_general = json.load(ofile)
 
 current_dictionary = []
-current_anagram_dictionary = []
 current_word_count = 0
-current_anagram_wc = 0
 
 status_gameRuntime = False
 status_gameMode = 0
@@ -33,26 +31,6 @@ def init_dictionary():
         return False, 0
     current_word_count= len(current_dictionary)
     return True, current_word_count
-
-
-def init_anagram_dict(matches):
-    """
-    This function generates a dictionary of anagrams containing
-    the favorable number of matches
-    """
-    global current_dictionary
-    output_dict = []
-    for word in current_dictionary:
-        anagram_list = anagrams(word, current_dictionary)
-        if len(anagram_list) >= matches:
-            print(word)
-            for anagram in anagram_list:
-                output_dict.append(anagram)
-                current_dictionary.remove(anagram)
-    global current_anagram_dictionary, current_anagram_wc
-    current_anagram_dictionary = output_dict
-    current_anagram_wc = len(output_dict)
-    return True, current_anagram_wc
 
 
 def anagrams(target_word, input_dict):
@@ -79,7 +57,7 @@ def start_game(gamemode, _player):
     if gamemode == 1:
         print("Starting anagram search game...")
         status_gameRuntime, status_gameMode = True, 1
-        anagram.start(current_anagram_dictionary, current_anagram_wc, _player)
+        anagram.start(current_dictionary, current_word_count, _player)
     elif gamemode == 2:
         print("Starting combine words game...")
         status_gameRuntime, status_gameMode = True, 2

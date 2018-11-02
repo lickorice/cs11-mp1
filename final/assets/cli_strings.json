@@ -1,6 +1,6 @@
 {
     "MAIN-MENU":
-    "Main Menu\n1\tPLAY\n2\tHIGHSCORES\n3\tEXIT",
+    "Main Menu\n1\tPLAY\n2\tEXIT",
     "GAME-SELECTION":
     "Select game mode:\n1\tSEARCHING FOR ANAGRAMS\n2\tCOMBINING WORDS\n3\tBACK"
 }
