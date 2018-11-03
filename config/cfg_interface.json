@@ -1,0 +1,11 @@
+{
+    "DISPLAY_HEIGHT": 450,
+    "DISPLAY_WIDTH": 800,
+    "FONT_HANDWRITING": "assets/fnt_handwriting.otf",
+    "FONT_TYPEWRITER": "assets/fnt_typewriter.ttf",
+    "COLOR_DARK-BLUE": [14, 12, 74],
+    "COLOR_RED": [216, 38, 38],
+    "COLOR_GREEN": [80, 213, 66],
+    "COLOR_AVAILABLE": [0, 0, 0],
+    "COLOR_UNAVAILABLE": [100, 100, 100]
+}
