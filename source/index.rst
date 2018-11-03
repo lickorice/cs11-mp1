@@ -10,11 +10,6 @@ Unscramble (CS11-MP1) Documentation
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    code
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
