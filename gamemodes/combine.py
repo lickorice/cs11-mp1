@@ -2,8 +2,9 @@
     This contains the code and logic for the
     second gamemode, COMBINING WORDS.
 
-    developed by Carlos Panganiban, 2018
-    github.com/lickorice | @cgpanganiban
+    Functions in this file are used by `engine.py`
+    and are not meant to be used directly by neither
+    `interface.py` nor `main.py`.
 """
 
 import random, json
@@ -16,8 +17,15 @@ cfg_points = {int(entry) : cfg_points[entry] for entry in cfg_points}
 
 def init_letters(dictionary, word_count):
     """
-    This function returns a list of 16 letters that have valid
-    answers.
+    This function generates a list of 16 letters that have valid 
+    answers based on the dictionary.
+
+    :returns: (`string`) string of 16 letters, (`int`) maximum points.
+
+    :param dictionary: dictionary to be used to generate the letters.
+    :param word_count: word count of the dictionary.
+    :type dictionary: list
+    :type word_count: int
     """
 
     word_list = []
@@ -44,39 +52,15 @@ def init_letters(dictionary, word_count):
                     return target_string, max_points(target_string, dictionary)
 
 
-def start(dictionary, word_count, player):
-    """
-    This method starts a new game.
-    """
-
-    word_list = []
-    for i in range(3):
-        word_list.append(dictionary[random.randrange(word_count)])
-
-    target_string = generate_string(generate_sequence(word_list))
-    total_points = max_points(target_string, dictionary)
-    print("Find words from this sequence of characters:")
-    print(target_string)
-    
-    # TODO: also change this to some time-based element
-    for i in range(10):
-        answer = input("Enter word: ")
-        if check_answer(target_string, answer, dictionary):
-            points = convert_points(answer)
-            print("Correct! {} points gained.".format(points))
-            player.points += points
-        else:
-            print("Wrong!")
-
-    print("In total, you got {} points out of".format(player.points))
-    print("a possible total of {} points!".format(total_points))
-    player.gamerecord = (2, target_string)
-
-
 def generate_sequence(word_list):
     """
-    This function returns an absolute minimum dictionary of letters required
+    This function generates an absolute minimum dictionary of letters required
     to form a given list of words.
+
+    :returns: (`dict`) dictionary of letters and letter count.
+      
+    :param word_list: list of words to be used to generate the letters.
+    :type word_list: list
     """
     alphabet = {chr(i): 0 for i in range(97, 123)}
     for word in word_list:
@@ -96,6 +80,11 @@ def generate_sequence(word_list):
 def generate_string(sequence):
     """
     Given a sequence (alphabet dictionary), generate a string of *ordered* letters.
+
+    :returns: (`string`) a randomly generated string made from the absolute minimum letter dictionary.
+
+    :param sequence: an absolute minimum letter dictionary produced by ``combine.generate_sequence``.
+    :type sequence: dict
     """
     output_str = ''
     for character in sequence:
@@ -110,8 +99,17 @@ def generate_string(sequence):
 
 def check_answer(sequence_str, input_str, input_dict):
     """
-    This function returns a Boolean given a sequence string (sequence_str),
-    an answer string (input_str), and an input dictionary (input_dict).
+    This function checks if your answer is within bounds of the
+    generated string and is valid based on the dictionary.
+
+    :returns: (`bool`) `True` or `False` if answer is correct.
+
+    :param sequence_str: the sequence string provided by the game.
+    :param input_str: the answer from the player.
+    :param input_dict: the dictionary to be used.
+    :type sequence_str: string
+    :type input_str: string
+    :type input_dict: list
     """
     if input_str not in input_dict:
         return False
@@ -128,7 +126,12 @@ def check_answer(sequence_str, input_str, input_dict):
 
 def convert_points(word):
     """
-    This returns the scrabble points (integer) of a word (string).
+    This converts the scrabble points of a word.
+
+    :returns: (`int`) scrabble points.
+
+    :param word: input word.
+    :type word: string
     """
     output_pts = 0
     for letter in word:
@@ -142,7 +145,14 @@ def convert_points(word):
 def max_points(input_str, input_dict):
     """
     This returns the maximum points (integer) that you can achieve
-    given a scrambled string (input_str) and a dictionary (input_dict)
+    given a scrambled string (input_str) and a dictionary (input_dict).
+
+    :returns: (`int`) maximum achievable points of the word.
+
+    :param input_str: the generated letter pool string used in the game.
+    :param input_dict: the dictionary to be used.
+    :type input_str: string
+    :type input_dict: list
     """
     output_pts, output_words = 0, []
 
@@ -165,11 +175,6 @@ def max_points(input_str, input_dict):
                     break
     return output_pts
 
-
-# DEBUG MODE:
-
-def main():
-    pass
 
 if __name__ == '__main__':
     main()

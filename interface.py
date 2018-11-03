@@ -1,9 +1,6 @@
 """
-    This is the main .py file for the interface
+    This is the .py file for the interface
     framework. (PyGame)
-
-    developed by Carlos Panganiban, 2018
-    github.com/lickorice | @cgpanganiban
 """
 
 import engine, pygame, json
@@ -36,7 +33,16 @@ music_playing = False
 
 def fade(background_url, fade_type = "out", time_delay=3):
     """
-    This function fades a background in or out, given its url and type.
+    This function fades a background in or out, given its url and fade type.
+
+    :param background_url: path for background image.
+    :type background_url: string
+    
+    :param fade_type: [``"out"`` /``"in"``] for fade out or fade in, respectively.
+    :type fade_type: string
+    
+    :param time_delay: delay in seconds before fading.
+    :type time_delay: int
     """
 
     img_background = pygame.image.load(background_url)
@@ -84,6 +90,9 @@ def fade(background_url, fade_type = "out", time_delay=3):
 def swipe(background_url):
     """
     This function sweeps a background in from the bottom, given its url.
+    
+    :param background_url: path for background image.
+    :type background_url: string
     """
 
     img_background = pygame.image.load(background_url)
@@ -113,9 +122,7 @@ def swipe(background_url):
 
 
 def splash_screen():
-    """
-    This function instantiates the intro splash screen.
-    """
+    """This function instantiates the splash screen."""
 
     fade('assets/img_splash.png', 'in', 1)
     fade('assets/img_splash.png', 'out', 3)
@@ -124,7 +131,32 @@ def splash_screen():
 
 def text_blit(text, font_size, font_url, rgb, center=True, x=None, y=None):
     """
-    This renders all the given text in the game screen.
+    This renders given text onto the game screen.
+    
+    :param text: literal string of text to be rendered.
+    :type text: string
+    
+    :param font_size: font size (in pixels) of text.
+    :type font_size: int
+    
+    :param font_url: path for the font file `(.ttf/.otf)` of the font.
+    :type font_url: string
+    
+    :param rgb: [``red``, ``green``, ``blue``] int tuple/list for the RGB color.
+    :type rgb: list/tuple
+    
+    :param center: if coordinates are aligned according to text's geometric center.
+    :type center: bool
+    
+    :param x: coordinates of render location on the x-axis.
+    :type x: int
+    
+    :param y: coordinates of render location on the y-axis.
+    :type y: int
+
+    If `x` and `y` are both left `None`, the text is automatically rendered on the center of the screen.
+
+    If `center` is on `False`, the text is rendered with `x` and `y` as its top-right orientation.
     """
     def text_objects(text, font, r, g, b):
         textSurface = font.render(text, True, (r, g, b))
@@ -149,21 +181,56 @@ def text_blit(text, font_size, font_url, rgb, center=True, x=None, y=None):
 
 def add_button(x1, x2, y1, y2, select_state, button_action, audio_url = None, pointer_url = None):
     """
-    This function instantiates a button rectangle
+    This function instantiates a button rectangle. It returns a Boolean whether or not the mouse
+    is hovering over it. The Boolean value is to be passed again into ``select_state`` in order to
+    avoid recursive effects (such as the hover audio playing again).
+
+    :returns: (`bool`) ``select_state``.
+    
+    :param x1: coordinates on the x-axis where the rectangle starts.
+    :type x1: int
+    
+    :param x2: coordinates on the x-axis where the rectangle ends.
+    :type x2: int
+    
+    :param y1: coordinates on the y-axis where the rectangle starts.
+    :type y1: int
+    
+    :param y2: coordinates on the y-axis where the rectangle ends.
+    :type y2: int
+    
+    :param select_state: if the button is currently hovered on by the mouse.
+    :type select_state: bool
+    
+    :param button_action: the function to be performed on button click.
+    :type button_action: function
+    
+    :param audio_url: path for the audio file to be played on hover.
+    :type audio_url: string
+    
+    :param pointer_url: path for the pointer image to be rendered on hover.
+    :type pointer_url: string
+
+    By default, `audio_url` and `pointer_url` are assigned `None`, and will not play any audio
+    and show any pointers on button hover.
     """
+
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    
-    aud_select = pygame.mixer.Sound(audio_url)
+
+    if audio_url != None:
+        aud_select = pygame.mixer.Sound(audio_url)
 
     if x1 <= mouse[0] <= x2 and y1 <= mouse[1] <= y2:
         if pointer_url != None:
             img_pointer = pygame.image.load('assets/img_pointer.png')
             screen.blit(img_pointer, (x2, y1))
-        if not select_state:
+        if not select_state and audio_url != None:
             aud_select.play()
 
         if click[0] == 1:
+            if audio_url != None:
+                aud_select.play()
             button_action()
         return True
     else:
@@ -172,7 +239,9 @@ def add_button(x1, x2, y1, y2, select_state, button_action, audio_url = None, po
 
 def back_button(x1, x2, y1, y2, select_state, button_action, audio_url = None):
     """
-    This function instantiates a button rectangle
+    This function instantiates a back button rectangle.
+    
+    Functionality is the same with ``interface.add_button``.
     """
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -194,6 +263,14 @@ def back_button(x1, x2, y1, y2, select_state, button_action, audio_url = None):
 
 
 def timer(count):
+    """
+    This function instantiates a timer on the screen. By default, the timer runs for **100 seconds**.
+
+    :returns: `(bool`) `True` if timer has ended and `False` if otherwise.
+
+    :param count: current count in seconds.
+    :type count: float
+    """
 
     img_loading_bar = pygame.image.load('assets/img_loading-bar.png')
     img_loading_bar_bg = pygame.image.load('assets/img_loading-bar-bg.png')
@@ -209,6 +286,8 @@ def timer(count):
 def anagram_loading_screen():
     """
     This function instantiates the anagram game loading screen.
+
+    This is called by `interface.anagram_screen` and **should not be called directly**.
     """
 
     img_loading_bg = pygame.image.load('assets/img_loading-anagram.png')
@@ -244,6 +323,8 @@ def anagram_loading_screen():
 def anagram_screen():
     """
     This function instantiates the anagram game instance.
+
+    This function is called directly from `interface.start_menu` through a button click.
     """
     
     display_word, answer_list = anagram_loading_screen()
@@ -326,6 +407,8 @@ def anagram_screen():
 def combine_screen():
     """
     This function instantiates the combine game instance.
+
+    This function is called directly from `interface.start_menu` through a button click.
     """
     
     swipe('assets/img_game-combine.png')
@@ -438,6 +521,11 @@ def combine_screen():
 def anagram_score_screen(answer_list):
     """
     This function instantiates the anagram score screen instance.
+
+    This is called by `interface.anagram_screen` and **should not be called directly**.
+    
+    :param answer_list: a list of words the user has correctly answered.
+    :type answer_list: list
     """
 
     img_background = pygame.image.load('assets/img_score-bg.png')
@@ -475,6 +563,14 @@ def anagram_score_screen(answer_list):
 def combine_score_screen(letter_string, max_points):
     """
     This function instantiates the combine score screen instance.
+
+    This is called by `interface.combine_screen` and **should not be called directly**.
+
+    :param letter_string: the randomly generated string used in the game mode.
+    :type letter_string: string
+    
+    :param max_points: the maximum number of points achievable with the string.
+    :type max_points: int
     """
 
     img_background = pygame.image.load('assets/img_score-bg.png')
@@ -508,6 +604,8 @@ def combine_score_screen(letter_string, max_points):
 def start_transition():
     """
     This function acts as a bridging instance for the menu.
+
+    This is called when a game ends and **should not be called directly**.
     """
     swipe('assets/img_main-menu.png')
     start_menu()
@@ -516,6 +614,9 @@ def start_transition():
 def start_menu():
     """
     This function instantiates the game menu.
+
+    This is called when a game ends or when the splash screen ends 
+    and **should not be called directly**.
     """
 
     global music_playing
@@ -579,11 +680,6 @@ def start_game():
         pygame.display.flip()
 
         clock.tick(60)
-
-
-def main():
-    engine.init_dictionary('assets/dictionary.txt')
-    start_game()
                 
 
 if __name__ == '__main__':
