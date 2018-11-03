@@ -27,8 +27,8 @@ clr_av2 = cfg_interface["COLOR_UNAVAILABLE"]
 fnt_hnd = cfg_interface["FONT_HANDWRITING"]
 fnt_tpw = cfg_interface["FONT_TYPEWRITER"]
 
-x_cnt = 0
-y_cnt = 0
+x_cnt = display_width//2
+y_cnt = display_height//2
 
 clock = pygame.time.Clock()
 
@@ -137,7 +137,7 @@ def text_blit(text, font_size, font_url, rgb, center=True, x=None, y=None):
             if x != None and y != None:
                 text_rect.center = (x, y)
             else:
-                text_rect.center = ((display_width//2), (display_height//2))
+                text_rect.center = ((x_cnt), (y_cnt))
             screen.blit(text_surface, text_rect)
         else:
             screen.blit(text_surface, (x, y))
@@ -254,10 +254,10 @@ def anagram_screen():
             answer_list.remove(text)
             aud_ding.play()
             for i in range(3):
-                text_blit(text, 80, fnt_hnd, clr_grn, True, display_width//2, display_height//2+35)
+                text_blit(text, 80, fnt_hnd, clr_grn, True, x_cnt, y_cnt+35)
                 pygame.time.delay(100)
                 pygame.display.update()
-                text_blit(text, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2+35)
+                text_blit(text, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt+35)
                 pygame.time.delay(100)
                 pygame.display.update()
                 clock.tick(60)
@@ -268,10 +268,10 @@ def anagram_screen():
         else:
             aud_fail.play()
             for i in range(3):
-                text_blit(text, 80, fnt_hnd, clr_red, True, display_width//2, display_height//2+35)
+                text_blit(text, 80, fnt_hnd, clr_red, True, x_cnt, y_cnt+35)
                 pygame.time.delay(100)
                 pygame.display.update()
-                text_blit(text, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2+35)
+                text_blit(text, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt+35)
                 pygame.time.delay(100)
                 pygame.display.update()
                 clock.tick(60)
@@ -306,7 +306,7 @@ def anagram_screen():
 
         screen.blit(img_anagram_background, (0, 0))
         text_blit(display_word, 80, fnt_hnd, clr_dkb, False, 120, 90)
-        text_blit(input_string, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2+35)
+        text_blit(input_string, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt+35)
         
         if timer(count) or len(answer_list) == 0:
             running_anagram_game = False
@@ -354,10 +354,10 @@ def combine_screen():
             answer_list.append(text)
             aud_ding.play()
             for i in range(3):
-                text_blit(text, 80, fnt_hnd, clr_grn, True, display_width//2, display_height//2-85)
+                text_blit(text, 80, fnt_hnd, clr_grn, True, x_cnt, y_cnt-85)
                 pygame.time.delay(100)
                 pygame.display.update()
-                text_blit(text, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2-85)
+                text_blit(text, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt-85)
                 pygame.time.delay(100)
                 pygame.display.update()
                 clock.tick(60)
@@ -369,10 +369,10 @@ def combine_screen():
         else:
             aud_fail.play()
             for i in range(3):
-                text_blit(text, 80, fnt_hnd, clr_red, True, display_width//2, display_height//2-85)
+                text_blit(text, 80, fnt_hnd, clr_red, True, x_cnt, y_cnt-85)
                 pygame.time.delay(100)
                 pygame.display.update()
-                text_blit(text, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2-85)
+                text_blit(text, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt-85)
                 pygame.time.delay(100)
                 pygame.display.update()
                 clock.tick(60)
@@ -418,7 +418,7 @@ def combine_screen():
 
         available_letters = [x[0] for x in combine_list if x[1] == True]
         combine_display(combine_list)
-        text_blit(input_string, 80, fnt_hnd, clr_dkb, True, display_width//2, display_height//2-85)
+        text_blit(input_string, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt-85)
                 
         if timer(count) or current_points == max_points:
             running_combine_game = False
@@ -462,9 +462,9 @@ def anagram_score_screen(answer_list):
 
         screen.blit(img_background, (0, 0))
         s1, s2, = "{} word{} solved".format(words_solved, plurality), "The words were:"
-        text_blit(s1, 60, fnt_hnd, clr_dkb, True, display_width//2, 175)
-        text_blit(s2, 40, fnt_hnd, clr_dkb, True, display_width//2, 235)
-        text_blit(answers, 50, fnt_hnd, clr_dkb, True, display_width//2, 310)
+        text_blit(s1, 60, fnt_hnd, clr_dkb, True, x_cnt, 175)
+        text_blit(s2, 40, fnt_hnd, clr_dkb, True, x_cnt, 235)
+        text_blit(answers, 50, fnt_hnd, clr_dkb, True, x_cnt, 310)
 
         but_1 = back_button(355, 455, 345, 405, but_1, start_transition, 'assets/aud_select.wav')
 
@@ -495,9 +495,9 @@ def combine_score_screen(letter_string, max_points):
         screen.blit(img_background, (0, 0))
         s1, s3 = "{} total point{}".format(points, plurality),  str(max_points)
         s2 = "The maximum achievable points for {} was:".format(letter_string)
-        text_blit(s1, 60, fnt_hnd, clr_dkb, True, display_width//2, 175)
-        text_blit(s2, 40, fnt_hnd, clr_dkb, True, display_width//2, 235)
-        text_blit(s3, 50, fnt_hnd, clr_dkb, True, display_width//2, 310)
+        text_blit(s1, 60, fnt_hnd, clr_dkb, True, x_cnt, 175)
+        text_blit(s2, 40, fnt_hnd, clr_dkb, True, x_cnt, 235)
+        text_blit(s3, 50, fnt_hnd, clr_dkb, True, x_cnt, 310)
 
         but_1 = back_button(355, 455, 345, 405, but_1, start_transition, 'assets/aud_select.wav')
 
