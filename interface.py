@@ -3,10 +3,12 @@
     framework. (PyGame)
 """
 
-import engine, pygame, json
+import engine, pygame, json, os
 
-with open('config/cfg_interface.json') as ofile:
+this_directory = os.path.dirname(__file__)
+with open(os.path.join(this_directory, 'config/cfg_interface.json')) as ofile:
     cfg_interface = json.load(ofile)
+
 
 display_width = cfg_interface["DISPLAY_WIDTH"]
 display_height = cfg_interface["DISPLAY_HEIGHT"]

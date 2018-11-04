@@ -7,10 +7,12 @@
     `interface.py` nor `main.py`.
 """
 
-import random, json
+import random, json, os
 
-with open('config/cfg_points.json') as ofile:
+this_directory = os.path.dirname(__file__)
+with open(os.path.join(this_directory, '../config/cfg_points.json')) as ofile:
     cfg_points = json.load(ofile)
+
 
 cfg_points = {int(entry) : cfg_points[entry] for entry in cfg_points}
 

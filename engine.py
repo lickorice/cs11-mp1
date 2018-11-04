@@ -2,10 +2,11 @@
     This is the .py file for the game engine.
 """
 
-import json, player
+import json, player, os
 from gamemodes import anagram, combine
 
-with open('config/cfg_general.json') as ofile:
+this_directory = os.path.dirname(__file__)
+with open(os.path.join(this_directory, 'config/cfg_general.json')) as ofile:
     cfg_general = json.load(ofile)
 
 current_dictionary = []

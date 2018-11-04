@@ -7,9 +7,10 @@ try:
     import interface
 except ModuleNotFoundError:
     import cli_interface as interface
-import engine, json
+import engine, json, os
 
-with open('config/cfg_general.json') as ofile:
+this_directory = os.path.dirname(__file__)
+with open(os.path.join(this_directory, 'config/cfg_general.json')) as ofile:
     cfg_general = json.load(ofile)
 
 

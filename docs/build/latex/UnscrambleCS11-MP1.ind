@@ -1,0 +1,82 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+
+  \bigletter A
+  \item add\_button() (in module interface), \hyperpage{7}
+  \item anagram (module), \hyperpage{10}
+  \item anagram\_correct() (in module engine), \hyperpage{9}
+  \item anagram\_end() (in module engine), \hyperpage{9}
+  \item anagram\_init() (in module engine), \hyperpage{10}
+  \item anagram\_loading\_screen() (in module interface), \hyperpage{7}
+  \item anagram\_score\_screen() (in module interface), \hyperpage{7}
+  \item anagram\_screen() (in module cli\_interface), \hyperpage{9}
+  \item anagram\_screen() (in module interface), \hyperpage{8}
+  \item anagrams() (in module anagram), \hyperpage{10}
+
+  \indexspace
+  \bigletter B
+  \item back\_button() (in module interface), \hyperpage{8}
+
+  \indexspace
+  \bigletter C
+  \item check\_answer() (in module combine), \hyperpage{11}
+  \item cli\_interface (module), \hyperpage{9}
+  \item combine (module), \hyperpage{11}
+  \item combine\_correct() (in module engine), \hyperpage{10}
+  \item combine\_end() (in module engine), \hyperpage{10}
+  \item combine\_init() (in module engine), \hyperpage{10}
+  \item combine\_points() (in module engine), \hyperpage{10}
+  \item combine\_score\_screen() (in module interface), \hyperpage{8}
+  \item combine\_screen() (in module cli\_interface), \hyperpage{9}
+  \item combine\_screen() (in module interface), \hyperpage{8}
+  \item convert\_points() (in module combine), \hyperpage{11}
+
+  \indexspace
+  \bigletter E
+  \item engine (module), \hyperpage{9}
+
+  \indexspace
+  \bigletter F
+  \item fade() (in module interface), \hyperpage{8}
+
+  \indexspace
+  \bigletter G
+  \item generate\_sequence() (in module combine), \hyperpage{11}
+  \item generate\_string() (in module combine), \hyperpage{11}
+
+  \indexspace
+  \bigletter I
+  \item init\_dictionary() (in module engine), \hyperpage{10}
+  \item init\_letters() (in module combine), \hyperpage{11}
+  \item init\_word() (in module anagram), \hyperpage{10}
+  \item input\_prompt() (in module cli\_interface), \hyperpage{9}
+  \item interface (module), \hyperpage{7}
+
+  \indexspace
+  \bigletter M
+  \item main (module), \hyperpage{7}
+  \item main() (in module main), \hyperpage{7}
+  \item max\_points() (in module combine), \hyperpage{11}
+  \item mistakes() (in module interface), \hyperpage{8}
+
+  \indexspace
+  \bigletter P
+  \item Player (class in player), \hyperpage{12}
+  \item player (module), \hyperpage{12}
+
+  \indexspace
+  \bigletter S
+  \item splash\_screen() (in module interface), \hyperpage{8}
+  \item start\_game() (in module cli\_interface), \hyperpage{9}
+  \item start\_game() (in module interface), \hyperpage{8}
+  \item start\_menu() (in module cli\_interface), \hyperpage{9}
+  \item start\_menu() (in module interface), \hyperpage{8}
+  \item start\_transition() (in module interface), \hyperpage{8}
+  \item swipe() (in module interface), \hyperpage{8}
+
+  \indexspace
+  \bigletter T
+  \item text\_blit() (in module interface), \hyperpage{8}
+  \item timer() (in module interface), \hyperpage{9}
+
+\end{sphinxtheindex}

@@ -5,10 +5,11 @@
 
 print("Running CLI fallback version...")
 
-import engine, json, sys, time
+import engine, json, sys, time, os
 
-with open('config/cfg_cli.json') as ofile:
-    int_str = json.load(ofile)  # Load interface strings from config files
+this_directory = os.path.dirname(__file__)
+with open(os.path.join(this_directory, 'config/cfg_cli.json')) as ofile:
+    int_str = json.load(ofile)
 
 
 def input_prompt(mistakes):
