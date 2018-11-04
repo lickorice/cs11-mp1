@@ -1,0 +1,46 @@
+\indexentry{main (module)|hyperpage}{6}
+\indexentry{main() (in module main)|hyperpage}{6}
+\indexentry{interface (module)|hyperpage}{6}
+\indexentry{add\_button() (in module interface)|hyperpage}{6}
+\indexentry{anagram\_loading\_screen() (in module interface)|hyperpage}{6}
+\indexentry{anagram\_score\_screen() (in module interface)|hyperpage}{6}
+\indexentry{anagram\_screen() (in module interface)|hyperpage}{7}
+\indexentry{back\_button() (in module interface)|hyperpage}{7}
+\indexentry{combine\_score\_screen() (in module interface)|hyperpage}{7}
+\indexentry{combine\_screen() (in module interface)|hyperpage}{7}
+\indexentry{fade() (in module interface)|hyperpage}{7}
+\indexentry{mistakes() (in module interface)|hyperpage}{7}
+\indexentry{splash\_screen() (in module interface)|hyperpage}{7}
+\indexentry{start\_game() (in module interface)|hyperpage}{7}
+\indexentry{start\_menu() (in module interface)|hyperpage}{7}
+\indexentry{start\_transition() (in module interface)|hyperpage}{7}
+\indexentry{swipe() (in module interface)|hyperpage}{7}
+\indexentry{text\_blit() (in module interface)|hyperpage}{7}
+\indexentry{timer() (in module interface)|hyperpage}{8}
+\indexentry{cli\_interface (module)|hyperpage}{8}
+\indexentry{anagram\_screen() (in module cli\_interface)|hyperpage}{8}
+\indexentry{combine\_screen() (in module cli\_interface)|hyperpage}{8}
+\indexentry{input\_prompt() (in module cli\_interface)|hyperpage}{8}
+\indexentry{start\_game() (in module cli\_interface)|hyperpage}{8}
+\indexentry{start\_menu() (in module cli\_interface)|hyperpage}{8}
+\indexentry{engine (module)|hyperpage}{8}
+\indexentry{anagram\_correct() (in module engine)|hyperpage}{8}
+\indexentry{anagram\_end() (in module engine)|hyperpage}{8}
+\indexentry{anagram\_init() (in module engine)|hyperpage}{9}
+\indexentry{combine\_correct() (in module engine)|hyperpage}{9}
+\indexentry{combine\_end() (in module engine)|hyperpage}{9}
+\indexentry{combine\_init() (in module engine)|hyperpage}{9}
+\indexentry{combine\_points() (in module engine)|hyperpage}{9}
+\indexentry{init\_dictionary() (in module engine)|hyperpage}{9}
+\indexentry{anagram (module)|hyperpage}{9}
+\indexentry{anagrams() (in module anagram)|hyperpage}{9}
+\indexentry{init\_word() (in module anagram)|hyperpage}{9}
+\indexentry{combine (module)|hyperpage}{10}
+\indexentry{check\_answer() (in module combine)|hyperpage}{10}
+\indexentry{convert\_points() (in module combine)|hyperpage}{10}
+\indexentry{generate\_sequence() (in module combine)|hyperpage}{10}
+\indexentry{generate\_string() (in module combine)|hyperpage}{10}
+\indexentry{init\_letters() (in module combine)|hyperpage}{10}
+\indexentry{max\_points() (in module combine)|hyperpage}{10}
+\indexentry{player (module)|hyperpage}{11}
+\indexentry{Player (class in player)|hyperpage}{11}

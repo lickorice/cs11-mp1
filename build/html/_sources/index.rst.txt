@@ -3,18 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Unscramble (CS11-MP1)'s documentation!
-=================================================
+Unscramble (CS11-MP1) Documentation
+===================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   code
+.. include:: install.rst
+.. include:: tutorial.rst
+.. include:: code.rst
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

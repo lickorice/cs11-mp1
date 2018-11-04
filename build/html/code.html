@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation &mdash; Unscramble (CS11-MP1) 1.0 documentation</title>
+  <title>Source Code Documentation &mdash; Unscramble (CS11-MP1) 1.0 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to Unscramble (CS11-MP1)’s documentation!" href="index.html" /> 
+    <link rel="prev" title="How to Play" href="tutorial.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,9 +79,13 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to Play</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Source Code Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-main"><code class="docutils literal notranslate"><span class="pre">main.py</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-interface"><code class="docutils literal notranslate"><span class="pre">interface.py</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cli_interface"><code class="docutils literal notranslate"><span class="pre">cli_interface.py</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-engine"><code class="docutils literal notranslate"><span class="pre">engine.py</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-anagram"><code class="docutils literal notranslate"><span class="pre">anagram.py</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-combine"><code class="docutils literal notranslate"><span class="pre">combine.py</span></code></a></li>
@@ -133,7 +137,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Documentation</li>
+      <li>Source Code Documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,8 +156,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="source-code-documentation">
+<h1>Source Code Documentation<a class="headerlink" href="#source-code-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-main">
 <span id="main-py"></span><h2><code class="docutils literal notranslate"><span class="pre">main.py</span></code><a class="headerlink" href="#module-main" title="Permalink to this headline">¶</a></h2>
 <p>This is the .py file for starting the game
@@ -282,6 +286,23 @@ and show any pointers on button hover.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="interface.mistakes">
+<code class="descclassname">interface.</code><code class="descname">mistakes</code><span class="sig-paren">(</span><em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#interface.mistakes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function instantiates a mistakes counter on the screen. By default, this renders for a maximum of three
+mistakes per game. The boolean returned by this function indicates if the user has already made three mistakes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(<cite>bool</cite>) <cite>True</cite> if mistakes reach three, <cite>False</cite> if otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>count</strong> (<em>int</em>) – number of mistakes by the player</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="interface.splash_screen">
 <code class="descclassname">interface.</code><code class="descname">splash_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.splash_screen" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function instantiates the splash screen.</p>
@@ -355,12 +376,58 @@ and <strong>should not be called directly</strong>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>(bool</cite>) <cite>True</cite> if timer has ended and <cite>False</cite> if otherwise.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(<cite>bool</cite>) <cite>True</cite> if timer has ended and <cite>False</cite> if otherwise.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>count</strong> (<em>float</em>) – current count in seconds.</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cli_interface">
+<span id="cli-interface-py"></span><h2><code class="docutils literal notranslate"><span class="pre">cli_interface.py</span></code><a class="headerlink" href="#module-cli_interface" title="Permalink to this headline">¶</a></h2>
+<p>This module is only run when <strong>Pygame is not installed in the system.</strong></p>
+<dl class="function">
+<dt id="cli_interface.anagram_screen">
+<code class="descclassname">cli_interface.</code><code class="descname">anagram_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_interface.anagram_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function instantiates the anagram screen.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cli_interface.combine_screen">
+<code class="descclassname">cli_interface.</code><code class="descname">combine_screen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_interface.combine_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function instantiates the anagram screen.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cli_interface.input_prompt">
+<code class="descclassname">cli_interface.</code><code class="descname">input_prompt</code><span class="sig-paren">(</span><em>mistakes</em><span class="sig-paren">)</span><a class="headerlink" href="#cli_interface.input_prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the equivalent of the mistake counter
+in the original Pygame rendition. However,
+this is integrated to the input prompt in the CLI.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(<cite>bool</cite>) if the time has ended or if mistakes reach 3, (<cite>string</cite>) the prompt string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mistakes</strong> (<em>int</em>) – the number of mistakes the player currently has.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cli_interface.start_game">
+<code class="descclassname">cli_interface.</code><code class="descname">start_game</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_interface.start_game" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function starts the game in CLI mode.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cli_interface.start_menu">
+<code class="descclassname">cli_interface.</code><code class="descname">start_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cli_interface.start_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function shows the main menu in CLI mode.</p>
 </dd></dl>
 
 </div>
@@ -397,7 +464,7 @@ for the loading sequence to show.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(<cite>string</cite>) temporary target word for the game.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(<cite>string</cite>) temporary target word for the game, (<cite>list</cite>) list of anagrams.</td>
 </tr>
 </tbody>
 </table>
@@ -696,7 +763,7 @@ point tallying, and etc.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to Unscramble (CS11-MP1)’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral" title="How to Play" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

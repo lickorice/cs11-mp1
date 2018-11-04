@@ -266,7 +266,7 @@ def timer(count):
     """
     This function instantiates a timer on the screen. By default, the timer runs for **100 seconds**.
 
-    :returns: `(bool`) `True` if timer has ended and `False` if otherwise.
+    :returns: (`bool`) `True` if timer has ended and `False` if otherwise.
 
     :param count: current count in seconds.
     :type count: float
@@ -280,6 +280,33 @@ def timer(count):
     else:
         screen.blit(img_loading_bar, (135 - ((count/100) * 580), 375))
         screen.blit(img_loading_bar_bg, (0, 375))
+        return False
+
+
+def mistakes(count):
+    """
+    This function instantiates a mistakes counter on the screen. By default, this renders for a maximum of three
+    mistakes per game. The boolean returned by this function indicates if the user has already made three mistakes.
+
+    :returns: (`bool`) `True` if mistakes reach three, `False` if otherwise.
+
+    :param count: number of mistakes by the player
+    :type count: int
+    """
+    try:
+        img_cross_true = pygame.image.load('assets/img_cross_true.png')
+        img_cross_false = pygame.image.load('assets/img_cross_false.png')
+        coords = [(710, 20), (710, 120), (710, 220)]
+        for x in range(count, 3):
+            screen.blit(img_cross_false, coords[x])
+        for x in range(count):
+            screen.blit(img_cross_true, coords[x])
+    except IndexError:
+        return True
+    
+    if count >= 3:
+        return True
+    else:
         return False
 
 
@@ -329,6 +356,7 @@ def anagram_screen():
     
     display_word, answer_list = anagram_loading_screen()
     original_list = answer_list.copy()
+    wrong_count = 0
 
     def process_anagram(text):
         if text in answer_list:
@@ -380,6 +408,9 @@ def anagram_screen():
                 elif event.key == pygame.K_RETURN:
                     if process_anagram(input_string):
                         input_string = ''
+                    else:
+                        wrong_count += 1
+                        mistakes(wrong_count)
                 elif pygame.K_a <= event.key <= pygame.K_z:
                     character = chr(event.key)
                     input_string += str(character).lower()
@@ -390,6 +421,10 @@ def anagram_screen():
         text_blit(input_string, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt+35)
         
         if timer(count) or len(answer_list) == 0:
+            running_anagram_game = False
+            aud_ding.play()
+
+        if mistakes(wrong_count):
             running_anagram_game = False
             aud_ding.play()
 
@@ -415,7 +450,7 @@ def combine_screen():
 
     letter_string, max_points = engine.combine_init()
     answer_list = []
-    current_points = 0
+    current_points, wrong_count = 0, 0
     combine_list = [[x, True] for x in letter_string]
     available_letters = [x[0] for x in combine_list if x[1] == True]
 
@@ -487,6 +522,9 @@ def combine_screen():
                     if process_combine(input_string):
                         input_string = ''
                         combine_list = [[x[0], True] for x in combine_list]
+                    else:
+                        wrong_count += 1
+                        mistakes(wrong_count)
                 elif pygame.K_a <= event.key <= pygame.K_z:
                     character = chr(event.key)
                     if character in available_letters:
@@ -504,6 +542,10 @@ def combine_screen():
         text_blit(input_string, 80, fnt_hnd, clr_dkb, True, x_cnt, y_cnt-85)
                 
         if timer(count) or current_points == max_points:
+            running_combine_game = False
+            aud_ding.play()
+
+        if mistakes(wrong_count):
             running_combine_game = False
             aud_ding.play()
 

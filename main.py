@@ -3,7 +3,11 @@
     Run this to run the game.
 """
 
-import engine, interface, json
+try:
+    import interface
+except ModuleNotFoundError:
+    import cli_interface as interface
+import engine, json
 
 with open('config/cfg_general.json') as ofile:
     cfg_general = json.load(ofile)

@@ -13,6 +13,12 @@ Source Code Documentation
 .. automodule:: interface
    :members:
 
+``cli_interface.py``
+--------------------
+
+.. automodule:: cli_interface
+   :members:
+
 ``engine.py``
 -------------
 

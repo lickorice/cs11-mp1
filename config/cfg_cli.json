@@ -1,0 +1,5 @@
+{
+    "EXIT_MSG": "Thanks for playing UNSCRAMBLE!",
+    "MAIN_MENU": "Welcome to UNSCRAMBLE!\n1\tANAGRAM MODE\n2\tCOMBINE MODE\n3\tQUIT",
+    "MENU_PROMPT": "Enter selection (1 - 3) : "
+}

@@ -38,7 +38,7 @@ def anagram_init():
     In addition, it also returns a word (regardless of the number of anagrams)
     for the loading sequence to show.
 
-    :returns: (`string`) temporary target word for the game.
+    :returns: (`string`) temporary target word for the game, (`list`) list of anagrams.
     """
     global current_player
     current_player = player.Player()
